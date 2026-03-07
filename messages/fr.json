@@ -1,0 +1,94 @@
+{
+  "sidebar": {
+    "gettingStarted": "Premiers pas",
+    "entriesResolved": "{resolved}/{total} entr\u00e9es r\u00e9solues",
+    "submitData": "Soumettre les donn\u00e9es",
+    "selectInstallation": "S\u00e9lectionner une installation",
+    "adminDashboard": "Tableau de bord admin"
+  },
+  "admin": {
+    "pageTitle": "Tableau de bord admin",
+    "usersTitle": "Utilisateurs",
+    "usersDescription": "G\u00e9rez les r\u00f4les et attribuez un consultant d\u00e9di\u00e9 \u00e0 chaque utilisateur.",
+    "colUser": "Utilisateur",
+    "colOperator": "Op\u00e9rateur",
+    "colRole": "R\u00f4le",
+    "colConsultant": "Consultant",
+    "makeAdmin": "Rendre admin",
+    "removeAdmin": "Retirer admin",
+    "noOperator": "Aucun op\u00e9rateur",
+    "noConsultant": "Aucun consultant",
+    "noUsers": "Aucun utilisateur trouv\u00e9.",
+    "operatorsTitle": "G\u00e9rer les op\u00e9rateurs",
+    "operatorsDescription": "Ajoutez ou supprimez des op\u00e9rateurs et assignez des utilisateurs.",
+    "noOperators": "Aucun op\u00e9rateur pour l\u2019instant.",
+    "addOperator": "Ajouter un nouvel op\u00e9rateur",
+    "operatorName": "Nom",
+    "operatorIdentifier": "Identifiant",
+    "operatorCountry": "Pays",
+    "consultantsTitle": "G\u00e9rer les consultants",
+    "consultantsDescription": "Ajoutez ou supprimez des consultants disponibles pour l\u2019affectation.",
+    "noConsultants": "Aucun consultant pour l\u2019instant.",
+    "addConsultant": "Ajouter un nouveau consultant",
+    "consultantName": "Nom",
+    "consultantTitle": "Titre",
+    "add": "Ajouter",
+    "installationsTitle": "Installations",
+    "noInstallations": "Aucune installation pour l\u2019instant.",
+    "addInstallation": "Ajouter une installation",
+    "installationName": "Nom",
+    "installationIdentifier": "ID de permis",
+    "installationAddress": "Adresse"
+  },
+  "gettingStarted": {
+    "title": "Premiers pas avec le CBAM-Estimator",
+    "subtitle": "Application de collecte d\u2019\u00e9missions",
+    "description": "Bienvenue dans notre application de collecte d\u2019\u00e9missions. Cette plateforme est con\u00e7ue pour aider les fournisseurs de pays non membres de l\u2019UE \u00e0 signaler leurs \u00e9missions li\u00e9es au CBAM \u00e0 leurs clients europ\u00e9ens de mani\u00e8re s\u00e9curis\u00e9e et efficace. Veuillez noter que les \u00e9missions d\u00e9clar\u00e9es ne peuvent pas \u00eatre utilis\u00e9es directement pour les d\u00e9clarations CBAM, car elles doivent \u00eatre v\u00e9rifi\u00e9es par un v\u00e9rificateur ind\u00e9pendant.",
+    "customersLabel": "Clients ayant demand\u00e9 des donn\u00e9es d\u2019\u00e9missions\u00a0:",
+    "start": "Commencer"
+  },
+  "cnCode": {
+    "pageTitle": "Tableau de bord",
+    "notFound": "CN Code introuvable",
+    "next": "Suivant",
+    "finish": "Terminer",
+    "emissionInputs": {
+      "seeDirect": "SEE Direct",
+      "benchmark": "R\u00e9f\u00e9rence",
+      "placeholder": "Espace r\u00e9serv\u00e9"
+    },
+    "productionRoutes": {
+      "label": "Voies de production"
+    },
+    "cannotProvide": {
+      "label": "Je ne peux pas fournir les donn\u00e9es demand\u00e9es pour ce CN Code",
+      "explanationPlaceholder": "Fournissez une explication\u2026",
+      "contactExpert": "Contactez notre expert pour aider \u00e0 fournir des \u00e9missions pour votre client"
+    },
+    "reportingPeriod": {
+      "label": "P\u00e9riode de d\u00e9claration\u00a0: {period}",
+      "tooltip": "Veuillez d\u00e9clarer les donn\u00e9es d\u2019\u00e9missions que vous avez collect\u00e9es pendant la p\u00e9riode de d\u00e9claration sp\u00e9cifi\u00e9e ou, si la p\u00e9riode de d\u00e9claration se situe partiellement dans le futur, les donn\u00e9es que vous pr\u00e9voyez d\u2019avoir. En cas de doute, veuillez d\u00e9clarer les donn\u00e9es les plus r\u00e9centes disponibles."
+    }
+  },
+  "settings": {
+    "title": "Param\u00e8tres",
+    "description": "Apportez des modifications \u00e0 votre profil ici.",
+    "email": "E-mail",
+    "contact": "Contact",
+    "save": "Enregistrer",
+    "saving": "Enregistrement\u2026",
+    "profileUpdated": "Profil mis \u00e0 jour",
+    "invalidPhone": "Num\u00e9ro de t\u00e9l\u00e9phone invalide"
+  },
+  "consultDialog": {
+    "title": "Consulter nos experts",
+    "description": "Nos experts peuvent vous aider \u00e0 examiner vos donn\u00e9es d\u2019\u00e9missions et \u00e0 r\u00e9soudre les probl\u00e8mes connexes. Notre \u00e9quipe poss\u00e8de une vaste exp\u00e9rience dans la collecte de donn\u00e9es d\u2019\u00e9missions li\u00e9es au CBAM et la conformit\u00e9.",
+    "cancel": "Annuler",
+    "bookCall": "R\u00e9server un appel"
+  },
+  "dedicatedConsultDialog": {
+    "title": "Votre expert d\u00e9di\u00e9",
+    "cancel": "Annuler",
+    "bookCall": "R\u00e9server un appel"
+  }
+}

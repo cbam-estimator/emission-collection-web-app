@@ -1,0 +1,94 @@
+{
+  "sidebar": {
+    "gettingStarted": "Primeros pasos",
+    "entriesResolved": "{resolved}/{total} entradas resueltas",
+    "submitData": "Enviar datos",
+    "selectInstallation": "Seleccionar instalaci\u00f3n",
+    "adminDashboard": "Panel de administraci\u00f3n"
+  },
+  "admin": {
+    "pageTitle": "Panel de administraci\u00f3n",
+    "usersTitle": "Usuarios",
+    "usersDescription": "Gestione roles y asigne un consultor dedicado a cada usuario.",
+    "colUser": "Usuario",
+    "colOperator": "Operador",
+    "colRole": "Rol",
+    "colConsultant": "Consultor",
+    "makeAdmin": "Hacer admin",
+    "removeAdmin": "Quitar admin",
+    "noOperator": "Sin operador",
+    "noConsultant": "Sin consultor",
+    "noUsers": "No se encontraron usuarios.",
+    "operatorsTitle": "Gestionar operadores",
+    "operatorsDescription": "A\u00f1ada o elimine operadores y asigne usuarios.",
+    "noOperators": "A\u00fan no hay operadores.",
+    "addOperator": "A\u00f1adir nuevo operador",
+    "operatorName": "Nombre",
+    "operatorIdentifier": "Identificador",
+    "operatorCountry": "Pa\u00eds",
+    "consultantsTitle": "Gestionar consultores",
+    "consultantsDescription": "A\u00f1ada o elimine consultores disponibles para asignaci\u00f3n.",
+    "noConsultants": "A\u00fan no hay consultores.",
+    "addConsultant": "A\u00f1adir nuevo consultor",
+    "consultantName": "Nombre",
+    "consultantTitle": "T\u00edtulo",
+    "add": "A\u00f1adir",
+    "installationsTitle": "Instalaciones",
+    "noInstallations": "A\u00fan no hay instalaciones.",
+    "addInstallation": "A\u00f1adir instalaci\u00f3n",
+    "installationName": "Nombre",
+    "installationIdentifier": "ID de permiso",
+    "installationAddress": "Direcci\u00f3n"
+  },
+  "gettingStarted": {
+    "title": "Primeros pasos con el CBAM-Estimator",
+    "subtitle": "Aplicaci\u00f3n de recolecci\u00f3n de emisiones",
+    "description": "Bienvenido a nuestra Aplicaci\u00f3n de recolecci\u00f3n de emisiones. Esta plataforma est\u00e1 dise\u00f1ada para ayudar a los proveedores de pa\u00edses no pertenecientes a la UE a reportar sus emisiones relacionadas con el CBAM a sus clientes europeos de manera segura y eficiente. Tenga en cuenta que las emisiones reportadas no se pueden utilizar directamente para la declaraci\u00f3n del CBAM, ya que deben ser verificadas por un verificador independiente.",
+    "customersLabel": "Clientes que han solicitado datos de emisiones:",
+    "start": "Comenzar"
+  },
+  "cnCode": {
+    "pageTitle": "Panel de control",
+    "notFound": "CN Code no encontrado",
+    "next": "Siguiente",
+    "finish": "Finalizar",
+    "emissionInputs": {
+      "seeDirect": "SEE Directo",
+      "benchmark": "Referencia",
+      "placeholder": "Marcador de posici\u00f3n"
+    },
+    "productionRoutes": {
+      "label": "Rutas de producci\u00f3n"
+    },
+    "cannotProvide": {
+      "label": "No puedo proporcionar los datos solicitados para este CN Code",
+      "explanationPlaceholder": "Proporcione una explicaci\u00f3n\u2026",
+      "contactExpert": "Contacte a nuestro experto para ayudar a proporcionar emisiones para su cliente"
+    },
+    "reportingPeriod": {
+      "label": "Per\u00edodo de informe: {period}",
+      "tooltip": "Informe los datos de emisiones que recopil\u00f3 durante el per\u00edodo de informe especificado o, si el per\u00edodo de informe se encuentra parcialmente en el futuro, los datos que espera tener. En caso de duda, informe los datos m\u00e1s recientes disponibles."
+    }
+  },
+  "settings": {
+    "title": "Configuraci\u00f3n",
+    "description": "Realice cambios en su perfil aqu\u00ed.",
+    "email": "Correo electr\u00f3nico",
+    "contact": "Contacto",
+    "save": "Guardar",
+    "saving": "Guardando\u2026",
+    "profileUpdated": "Perfil actualizado",
+    "invalidPhone": "N\u00famero de tel\u00e9fono no v\u00e1lido"
+  },
+  "consultDialog": {
+    "title": "Consultar a nuestros expertos",
+    "description": "Nuestros expertos pueden ayudarle a revisar sus datos de emisiones y abordar cualquier problema relacionado. Nuestro equipo tiene amplia experiencia en la recolecci\u00f3n de datos de emisiones relacionadas con el CBAM y el cumplimiento normativo.",
+    "cancel": "Cancelar",
+    "bookCall": "Reservar una llamada"
+  },
+  "dedicatedConsultDialog": {
+    "title": "Su experto dedicado",
+    "cancel": "Cancelar",
+    "bookCall": "Reservar una llamada"
+  }
+}

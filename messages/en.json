@@ -1,0 +1,94 @@
+{
+  "sidebar": {
+    "gettingStarted": "Getting Started",
+    "entriesResolved": "{resolved}/{total} Entries Resolved",
+    "submitData": "Submit Data",
+    "selectInstallation": "Select installation",
+    "adminDashboard": "Admin Dashboard"
+  },
+  "admin": {
+    "pageTitle": "Admin Dashboard",
+    "usersTitle": "Users",
+    "usersDescription": "Manage roles and assign a dedicated consultant to each user.",
+    "colUser": "User",
+    "colOperator": "Operator",
+    "colRole": "Role",
+    "colConsultant": "Consultant",
+    "makeAdmin": "Make Admin",
+    "removeAdmin": "Remove Admin",
+    "noOperator": "No operator",
+    "noConsultant": "No consultant",
+    "noUsers": "No users found.",
+    "operatorsTitle": "Manage Operators",
+    "operatorsDescription": "Add or remove operators and assign users to them.",
+    "noOperators": "No operators yet.",
+    "addOperator": "Add new operator",
+    "operatorName": "Name",
+    "operatorIdentifier": "Identifier",
+    "operatorCountry": "Country",
+    "consultantsTitle": "Manage Consultants",
+    "consultantsDescription": "Add or remove consultants available for assignment.",
+    "noConsultants": "No consultants yet.",
+    "addConsultant": "Add new consultant",
+    "consultantName": "Name",
+    "consultantTitle": "Title",
+    "add": "Add",
+    "installationsTitle": "Installations",
+    "noInstallations": "No installations yet.",
+    "addInstallation": "Add installation",
+    "installationName": "Name",
+    "installationIdentifier": "Permit ID",
+    "installationAddress": "Address"
+  },
+  "gettingStarted": {
+    "title": "Getting Started With the CBAM-Estimator",
+    "subtitle": "Emission Collection App",
+    "description": "Welcome to our Emission Collection App. This platform is designed to help suppliers from non-EU countries report their CBAM-related emissions to their European customers in a secure and efficient manner. Please note that the reported emissions cannot be used directly for CBAM reporting, as they must be verified by an independent verifier.",
+    "customersLabel": "Customers who have requested emission data from you:",
+    "start": "Start"
+  },
+  "cnCode": {
+    "pageTitle": "Dashboard",
+    "notFound": "CN Code not found",
+    "next": "Next",
+    "finish": "Finish",
+    "emissionInputs": {
+      "seeDirect": "SEE Direct",
+      "benchmark": "Benchmark",
+      "placeholder": "Placeholder"
+    },
+    "productionRoutes": {
+      "label": "Production Routes"
+    },
+    "cannotProvide": {
+      "label": "I cannot provide the requested data for this CN Code",
+      "explanationPlaceholder": "Provide an explanation...",
+      "contactExpert": "Contact our expert to help provide emissions for your customer"
+    },
+    "reportingPeriod": {
+      "label": "Reporting Period: {period}",
+      "tooltip": "Please report the emission data that you have collected during the specified reporting period or, if the reporting period lies partly in the future, the data you expect to have. If in doubt, please report the most recent data available."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Make changes to your profile here.",
+    "email": "Email",
+    "contact": "Contact",
+    "save": "Save",
+    "saving": "Saving\u2026",
+    "profileUpdated": "Profile updated",
+    "invalidPhone": "Invalid phone number"
+  },
+  "consultDialog": {
+    "title": "Consult our Experts",
+    "description": "Our experts can help you review your emission data and address any related issues. Our team brings extensive experience in CBAM-related emissions data collection and compliance.",
+    "cancel": "Cancel",
+    "bookCall": "Book a Call with us"
+  },
+  "dedicatedConsultDialog": {
+    "title": "Your dedicated Expert",
+    "cancel": "Cancel",
+    "bookCall": "Book a Call"
+  }
+}

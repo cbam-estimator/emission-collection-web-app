@@ -1,0 +1,94 @@
+{
+  "sidebar": {
+    "gettingStarted": "Ba\u015flarken",
+    "entriesResolved": "{resolved}/{total} Giri\u015f \u00c7\u00f6z\u00fcmlendi",
+    "submitData": "Veriyi G\u00f6nder",
+    "selectInstallation": "Tesis se\u00e7in",
+    "adminDashboard": "Y\u00f6netici Paneli"
+  },
+  "admin": {
+    "pageTitle": "Y\u00f6netici Paneli",
+    "usersTitle": "Kullan\u0131c\u0131lar",
+    "usersDescription": "Rolleri y\u00f6netin ve her kullan\u0131c\u0131ya dan\u0131\u015fman atay\u0131n.",
+    "colUser": "Kullan\u0131c\u0131",
+    "colOperator": "Operat\u00f6r",
+    "colRole": "Rol",
+    "colConsultant": "Dan\u0131\u015fman",
+    "makeAdmin": "Admin yap",
+    "removeAdmin": "Admini kald\u0131r",
+    "noOperator": "Operat\u00f6r yok",
+    "noConsultant": "Dan\u0131\u015fman yok",
+    "noUsers": "Kullan\u0131c\u0131 bulunamad\u0131.",
+    "operatorsTitle": "Operat\u00f6rleri Y\u00f6net",
+    "operatorsDescription": "Operat\u00f6r ekleyin veya kald\u0131r\u0131n ve kullan\u0131c\u0131lar\u0131 atay\u0131n.",
+    "noOperators": "Hen\u00fcz operat\u00f6r yok.",
+    "addOperator": "Yeni operat\u00f6r ekle",
+    "operatorName": "Ad",
+    "operatorIdentifier": "Tan\u0131mlay\u0131c\u0131",
+    "operatorCountry": "\u00dclke",
+    "consultantsTitle": "Dan\u0131\u015fmanlar\u0131 Y\u00f6net",
+    "consultantsDescription": "Atama i\u00e7in dan\u0131\u015fman ekleyin veya kald\u0131r\u0131n.",
+    "noConsultants": "Hen\u00fcz dan\u0131\u015fman yok.",
+    "addConsultant": "Yeni dan\u0131\u015fman ekle",
+    "consultantName": "Ad",
+    "consultantTitle": "Unvan",
+    "add": "Ekle",
+    "installationsTitle": "Tesisler",
+    "noInstallations": "Hen\u00fcz tesis yok.",
+    "addInstallation": "Tesis ekle",
+    "installationName": "Ad",
+    "installationIdentifier": "\u0130zin Kimli\u011fi",
+    "installationAddress": "Adres"
+  },
+  "gettingStarted": {
+    "title": "CBAM-Estimator ile Ba\u015flarken",
+    "subtitle": "Emisyon Toplama Uygulamas\u0131",
+    "description": "Emisyon Toplama Uygulamas\u0131m\u0131za ho\u015f geldiniz. Bu platform, AB d\u0131\u015f\u0131 \u00fclkelerden tedarik\u00e7ilerin CBAM ile ilgili emisyonlar\u0131n\u0131 Avrupa m\u00fc\u015fterilerine g\u00fcvenli ve verimli bir \u015fekilde raporlamalar\u0131na yard\u0131mc\u0131 olmak i\u00e7in tasarlanm\u0131\u015ft\u0131r. Raporlanan emisyonlar\u0131n, ba\u011f\u0131ms\u0131z bir do\u011frulay\u0131c\u0131 taraf\u0131ndan do\u011frulanmas\u0131 gerekti\u011finden, CBAM raporlamas\u0131nda do\u011frudan kullan\u0131lamayaca\u011f\u0131n\u0131 l\u00fctfen unutmay\u0131n.",
+    "customersLabel": "Sizden emisyon verisi talep eden m\u00fc\u015fteriler:",
+    "start": "Ba\u015fla"
+  },
+  "cnCode": {
+    "pageTitle": "G\u00f6sterge Paneli",
+    "notFound": "CN Code bulunamad\u0131",
+    "next": "\u0130leri",
+    "finish": "Bitir",
+    "emissionInputs": {
+      "seeDirect": "SEE Do\u011frudan",
+      "benchmark": "K\u0131yaslama",
+      "placeholder": "Yer tutucu"
+    },
+    "productionRoutes": {
+      "label": "\u00dcretim Rotalar\u0131"
+    },
+    "cannotProvide": {
+      "label": "Bu CN Code i\u00e7in istenen verileri sa\u011flayam\u0131yorum",
+      "explanationPlaceholder": "Bir a\u00e7\u0131klama sa\u011flay\u0131n\u2026",
+      "contactExpert": "M\u00fc\u015fteriniz i\u00e7in emisyon sa\u011flamaya yard\u0131mc\u0131 olmak \u00fczere uzman\u0131m\u0131zla ileti\u015fime ge\u00e7in"
+    },
+    "reportingPeriod": {
+      "label": "Raporlama D\u00f6nemi: {period}",
+      "tooltip": "L\u00fctfen belirlenen raporlama d\u00f6nemi boyunca toplad\u0131\u011f\u0131n\u0131z emisyon verilerini veya raporlama d\u00f6nemi k\u0131smen gelecekte ise bekledi\u011finiz verileri bildirin. \u015e\u00fcphe duydu\u011funuzda, mevcut en g\u00fcncel verileri bildirin."
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Profilinizde de\u011fi\u015fiklik yap\u0131n.",
+    "email": "E-posta",
+    "contact": "\u0130leti\u015fim",
+    "save": "Kaydet",
+    "saving": "Kaydediliyor\u2026",
+    "profileUpdated": "Profil g\u00fcncellendi",
+    "invalidPhone": "Ge\u00e7ersiz telefon numaras\u0131"
+  },
+  "consultDialog": {
+    "title": "Uzmanlar\u0131m\u0131za Dan\u0131\u015f\u0131n",
+    "description": "Uzmanlar\u0131m\u0131z emisyon verilerinizi incelemenize ve ilgili sorunlar\u0131 \u00e7\u00f6zmenize yard\u0131mc\u0131 olabilir. Ekibimiz, CBAM ile ilgili emisyon veri toplama ve uyumluluk konusunda geni\u015f deneyime sahiptir.",
+    "cancel": "\u0130ptal",
+    "bookCall": "G\u00f6r\u00fc\u015fme Rezervasyonu Yap"
+  },
+  "dedicatedConsultDialog": {
+    "title": "\u00d6zel Uzman\u0131n\u0131z",
+    "cancel": "\u0130ptal",
+    "bookCall": "G\u00f6r\u00fc\u015fme Rezervasyonu Yap"
+  }
+}

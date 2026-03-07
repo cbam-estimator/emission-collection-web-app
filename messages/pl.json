@@ -1,0 +1,94 @@
+{
+  "sidebar": {
+    "gettingStarted": "Pierwsze kroki",
+    "entriesResolved": "{resolved}/{total} wpis\u00f3w rozwi\u0105zanych",
+    "submitData": "Prze\u015blij dane",
+    "selectInstallation": "Wybierz instalacj\u0119",
+    "adminDashboard": "Panel administratora"
+  },
+  "admin": {
+    "pageTitle": "Panel administratora",
+    "usersTitle": "U\u017cytkownicy",
+    "usersDescription": "Zarz\u0105dzaj rolami i przypisuj konsultant\u00f3w do u\u017cytkownik\u00f3w.",
+    "colUser": "U\u017cytkownik",
+    "colOperator": "Operator",
+    "colRole": "Rola",
+    "colConsultant": "Konsultant",
+    "makeAdmin": "Nadaj rol\u0119 admina",
+    "removeAdmin": "Usu\u0144 rol\u0119 admina",
+    "noOperator": "Brak operatora",
+    "noConsultant": "Brak konsultanta",
+    "noUsers": "Nie znaleziono u\u017cytkownik\u00f3w.",
+    "operatorsTitle": "Zarz\u0105dzaj operatorami",
+    "operatorsDescription": "Dodaj lub usu\u0144 operator\u00f3w i przypisuj u\u017cytkownik\u00f3w.",
+    "noOperators": "Brak operator\u00f3w.",
+    "addOperator": "Dodaj nowego operatora",
+    "operatorName": "Nazwa",
+    "operatorIdentifier": "Identyfikator",
+    "operatorCountry": "Kraj",
+    "consultantsTitle": "Zarz\u0105dzaj konsultantami",
+    "consultantsDescription": "Dodaj lub usu\u0144 konsultant\u00f3w dost\u0119pnych do przypisania.",
+    "noConsultants": "Brak konsultant\u00f3w.",
+    "addConsultant": "Dodaj nowego konsultanta",
+    "consultantName": "Imi\u0119 i nazwisko",
+    "consultantTitle": "Tytu\u0142",
+    "add": "Dodaj",
+    "installationsTitle": "Instalacje",
+    "noInstallations": "Brak instalacji.",
+    "addInstallation": "Dodaj instalacj\u0119",
+    "installationName": "Nazwa",
+    "installationIdentifier": "Numer pozwolenia",
+    "installationAddress": "Adres"
+  },
+  "gettingStarted": {
+    "title": "Pierwsze kroki z CBAM-Estimator",
+    "subtitle": "Aplikacja do zbierania emisji",
+    "description": "Witamy w naszej Aplikacji do zbierania emisji. Ta platforma jest zaprojektowana, aby pom\u00f3c dostawcom z kraj\u00f3w spoza UE w raportowaniu swoich emisji zwi\u0105zanych z CBAM do europejskich klient\u00f3w w bezpieczny i efektywny spos\u00f3b. Nale\u017cy pami\u0119ta\u0107, \u017ce zg\u0142aszane emisje nie mog\u0105 by\u0107 bezpo\u015brednio wykorzystywane do raportowania CBAM, poniewa\u017c musz\u0105 zosta\u0107 zweryfikowane przez niezale\u017cnego weryfikatora.",
+    "customersLabel": "Klienci, kt\u00f3rzy poprosili o dane o emisjach:",
+    "start": "Rozpocznij"
+  },
+  "cnCode": {
+    "pageTitle": "Panel g\u0142\u00f3wny",
+    "notFound": "CN Code nie zosta\u0142 znaleziony",
+    "next": "Dalej",
+    "finish": "Zako\u0144cz",
+    "emissionInputs": {
+      "seeDirect": "SEE Bezpo\u015brednie",
+      "benchmark": "Benchmark",
+      "placeholder": "Symbol zast\u0119pczy"
+    },
+    "productionRoutes": {
+      "label": "Trasy produkcji"
+    },
+    "cannotProvide": {
+      "label": "Nie mog\u0119 poda\u0107 wymaganych danych dla tego CN Code",
+      "explanationPlaceholder": "Podaj wyja\u015bnienie\u2026",
+      "contactExpert": "Skontaktuj si\u0119 z naszym ekspertem, aby pom\u00f3c w dostarczeniu emisji dla twojego klienta"
+    },
+    "reportingPeriod": {
+      "label": "Okres sprawozdawczy: {period}",
+      "tooltip": "Prosz\u0119 o podanie danych o emisjach zebranych podczas okre\u015blonego okresu sprawozdawczego lub, je\u015bli okres sprawozdawczy cz\u0119\u015bciowo le\u017cy w przysz\u0142o\u015bci, danych, kt\u00f3rych oczekujesz. W razie w\u0105tpliwo\u015bci prosz\u0119 o podanie najnowszych dost\u0119pnych danych."
+    }
+  },
+  "settings": {
+    "title": "Ustawienia",
+    "description": "Wprowad\u017a zmiany w swoim profilu tutaj.",
+    "email": "E-mail",
+    "contact": "Kontakt",
+    "save": "Zapisz",
+    "saving": "Zapisywanie\u2026",
+    "profileUpdated": "Profil zaktualizowany",
+    "invalidPhone": "Nieprawid\u0142owy numer telefonu"
+  },
+  "consultDialog": {
+    "title": "Skonsultuj si\u0119 z naszymi ekspertami",
+    "description": "Nasi eksperci mog\u0105 pom\u00f3c Ci przejrze\u0107 dane o emisjach i rozwi\u0105za\u0107 wszelkie zwi\u0105zane z nimi problemy. Nasz zesp\u00f3\u0142 ma rozleg\u0142e do\u015bwiadczenie w zbieraniu danych o emisjach zwi\u0105zanych z CBAM i zapewnianiu zgodno\u015bci.",
+    "cancel": "Anuluj",
+    "bookCall": "Zarezerwuj rozmow\u0119"
+  },
+  "dedicatedConsultDialog": {
+    "title": "Tw\u00f3j dedykowany ekspert",
+    "cancel": "Anuluj",
+    "bookCall": "Zarezerwuj rozmow\u0119"
+  }
+}

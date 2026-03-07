@@ -1,0 +1,94 @@
+{
+  "sidebar": {
+    "gettingStarted": "Erste Schritte",
+    "entriesResolved": "{resolved}/{total} Eintr\u00e4ge abgeschlossen",
+    "submitData": "Daten einreichen",
+    "selectInstallation": "Installation ausw\u00e4hlen",
+    "adminDashboard": "Admin-Dashboard"
+  },
+  "admin": {
+    "pageTitle": "Admin-Dashboard",
+    "usersTitle": "Benutzer",
+    "usersDescription": "Rollen verwalten und jedem Benutzer einen Berater zuweisen.",
+    "colUser": "Benutzer",
+    "colOperator": "Betreiber",
+    "colRole": "Rolle",
+    "colConsultant": "Berater",
+    "makeAdmin": "Admin machen",
+    "removeAdmin": "Admin entfernen",
+    "noOperator": "Kein Betreiber",
+    "noConsultant": "Kein Berater",
+    "noUsers": "Keine Benutzer gefunden.",
+    "operatorsTitle": "Betreiber verwalten",
+    "operatorsDescription": "Betreiber hinzuf\u00fcgen oder entfernen und Benutzer zuweisen.",
+    "noOperators": "Noch keine Betreiber.",
+    "addOperator": "Neuen Betreiber hinzuf\u00fcgen",
+    "operatorName": "Name",
+    "operatorIdentifier": "Kennnummer",
+    "operatorCountry": "Land",
+    "consultantsTitle": "Berater verwalten",
+    "consultantsDescription": "Berater f\u00fcr die Zuweisung hinzuf\u00fcgen oder entfernen.",
+    "noConsultants": "Noch keine Berater.",
+    "addConsultant": "Neuen Berater hinzuf\u00fcgen",
+    "consultantName": "Name",
+    "consultantTitle": "Titel",
+    "add": "Hinzuf\u00fcgen",
+    "installationsTitle": "Anlagen",
+    "noInstallations": "Noch keine Anlagen.",
+    "addInstallation": "Anlage hinzuf\u00fcgen",
+    "installationName": "Name",
+    "installationIdentifier": "Genehmigungsnummer",
+    "installationAddress": "Adresse"
+  },
+  "gettingStarted": {
+    "title": "Erste Schritte mit dem CBAM-Estimator",
+    "subtitle": "Emissionserfassungs-App",
+    "description": "Willkommen in unserer Emissionserfassungs-App. Diese Plattform wurde entwickelt, um Lieferanten aus Nicht-EU-L\u00e4ndern dabei zu helfen, ihre CBAM-bezogenen Emissionen an ihre europ\u00e4ischen Kunden auf sichere und effiziente Weise zu melden. Bitte beachten Sie, dass die gemeldeten Emissionen nicht direkt f\u00fcr die CBAM-Berichterstattung verwendet werden k\u00f6nnen, da sie von einem unabh\u00e4ngigen Pr\u00fcfer verifiziert werden m\u00fcssen.",
+    "customersLabel": "Kunden, die Emissionsdaten von Ihnen angefordert haben:",
+    "start": "Starten"
+  },
+  "cnCode": {
+    "pageTitle": "Dashboard",
+    "notFound": "CN Code nicht gefunden",
+    "next": "Weiter",
+    "finish": "Abschlie\u00dfen",
+    "emissionInputs": {
+      "seeDirect": "SEE Direkt",
+      "benchmark": "Benchmark",
+      "placeholder": "Platzhalter"
+    },
+    "productionRoutes": {
+      "label": "Produktionsrouten"
+    },
+    "cannotProvide": {
+      "label": "Ich kann die angeforderten Daten f\u00fcr diesen CN Code nicht bereitstellen",
+      "explanationPlaceholder": "Erkl\u00e4rung angeben\u2026",
+      "contactExpert": "Kontaktieren Sie unseren Experten, um Emissionen f\u00fcr Ihren Kunden bereitzustellen"
+    },
+    "reportingPeriod": {
+      "label": "Berichtszeitraum: {period}",
+      "tooltip": "Bitte melden Sie die Emissionsdaten, die Sie w\u00e4hrend des angegebenen Berichtszeitraums erfasst haben, oder, wenn der Berichtszeitraum teilweise in der Zukunft liegt, die Daten, die Sie erwarten. Melden Sie im Zweifel die aktuellsten verf\u00fcgbaren Daten."
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "description": "Nehmen Sie hier \u00c4nderungen an Ihrem Profil vor.",
+    "email": "E-Mail",
+    "contact": "Kontakt",
+    "save": "Speichern",
+    "saving": "Speichern\u2026",
+    "profileUpdated": "Profil aktualisiert",
+    "invalidPhone": "Ung\u00fcltige Telefonnummer"
+  },
+  "consultDialog": {
+    "title": "Unsere Experten konsultieren",
+    "description": "Unsere Experten k\u00f6nnen Ihnen helfen, Ihre Emissionsdaten zu \u00fcberpr\u00fcfen und damit verbundene Probleme zu l\u00f6sen. Unser Team verf\u00fcgt \u00fcber umfangreiche Erfahrung in der CBAM-bezogenen Emissionsdatenerfassung und Compliance.",
+    "cancel": "Abbrechen",
+    "bookCall": "Gespr\u00e4ch buchen"
+  },
+  "dedicatedConsultDialog": {
+    "title": "Ihr pers\u00f6nlicher Experte",
+    "cancel": "Abbrechen",
+    "bookCall": "Gespr\u00e4ch buchen"
+  }
+}
