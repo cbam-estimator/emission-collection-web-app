@@ -65,7 +65,10 @@ export function CannotProvideSection({
 
           {consultant ? (
             <DedicatedConsultDialog
-              consultant={consultant}
+              consultant={{
+                ...consultant,
+                avatarUrl: consultant.avatarUrl ?? undefined,
+              }}
               open={dialogOpen}
               onOpenChange={setDialogOpen}
             />
