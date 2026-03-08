@@ -29,7 +29,9 @@ export function DedicatedConsultDialog({
 
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
-  const setOpen = isControlled ? (onOpenChange ?? (() => undefined)) : setInternalOpen;
+  const setOpen = isControlled
+    ? (onOpenChange ?? (() => undefined))
+    : setInternalOpen;
 
   return (
     <>

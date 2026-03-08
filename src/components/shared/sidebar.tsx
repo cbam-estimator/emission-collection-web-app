@@ -135,37 +135,37 @@ export function CBAMSidebar() {
                 </div>
               ))
             : entries.map((entry) => {
-            const href = `/${locale}/cn/${entry.cnCode}`;
-            const isActive = pathname === href;
-            return (
-              <Link
-                key={entry.cnCode}
-                href={href}
-                className={cn(
-                  "flex items-center justify-between rounded-lg border px-3 py-2 transition-colors",
-                  isActive
-                    ? "border-primary bg-primary/10"
-                    : entry.resolved
-                      ? "border-primary/30 bg-primary/5 hover:bg-primary/10"
-                      : "border-border bg-background hover:bg-muted/50",
-                )}
-              >
-                <span className="font-mono text-sm font-medium">
-                  {entry.cnCode}
-                </span>
-                <div
-                  className={cn(
-                    "flex size-6 items-center justify-center rounded-full border-2",
-                    entry.resolved
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-muted-foreground/30",
-                  )}
-                >
-                  {entry.resolved && <Check className="size-4" />}
-                </div>
-              </Link>
-            );
-          })}
+                const href = `/${locale}/cn/${entry.cnCode}`;
+                const isActive = pathname === href;
+                return (
+                  <Link
+                    key={entry.cnCode}
+                    href={href}
+                    className={cn(
+                      "flex items-center justify-between rounded-lg border px-3 py-2 transition-colors",
+                      isActive
+                        ? "border-primary bg-primary/10"
+                        : entry.resolved
+                          ? "border-primary/30 bg-primary/5 hover:bg-primary/10"
+                          : "border-border bg-background hover:bg-muted/50",
+                    )}
+                  >
+                    <span className="font-mono text-sm font-medium">
+                      {entry.cnCode}
+                    </span>
+                    <div
+                      className={cn(
+                        "flex size-6 items-center justify-center rounded-full border-2",
+                        entry.resolved
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-muted-foreground/30",
+                      )}
+                    >
+                      {entry.resolved && <Check className="size-4" />}
+                    </div>
+                  </Link>
+                );
+              })}
         </div>
       </div>
 

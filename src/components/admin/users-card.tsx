@@ -61,7 +61,10 @@ export function UsersCard() {
         {isLoading ? (
           <div className="space-y-3">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="grid grid-cols-[1fr_14rem_9rem_13rem] items-center gap-3">
+              <div
+                key={i}
+                className="grid grid-cols-[1fr_14rem_9rem_13rem] items-center gap-3"
+              >
                 <Skeleton className="h-5" />
                 <Skeleton className="h-9" />
                 <Skeleton className="h-9" />
@@ -71,7 +74,7 @@ export function UsersCard() {
           </div>
         ) : (
           <>
-            <div className="text-muted-foreground mb-1 grid grid-cols-[1fr_14rem_9rem_13rem] items-center gap-3 px-1 text-xs font-medium uppercase tracking-wide">
+            <div className="text-muted-foreground mb-1 grid grid-cols-[1fr_14rem_9rem_13rem] items-center gap-3 px-1 text-xs font-medium tracking-wide uppercase">
               <span>{t("colUser")}</span>
               <span>{t("colOperator")}</span>
               <span className="text-center">{t("colRole")}</span>

@@ -17,13 +17,18 @@ interface ConsultDialogProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export function ConsultDialog({ open: controlledOpen, onOpenChange }: ConsultDialogProps = {}) {
+export function ConsultDialog({
+  open: controlledOpen,
+  onOpenChange,
+}: ConsultDialogProps = {}) {
   const t = useTranslations("consultDialog");
   const [internalOpen, setInternalOpen] = useState(false);
 
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
-  const setOpen = isControlled ? (onOpenChange ?? (() => undefined)) : setInternalOpen;
+  const setOpen = isControlled
+    ? (onOpenChange ?? (() => undefined))
+    : setInternalOpen;
 
   return (
     <>

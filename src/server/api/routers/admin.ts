@@ -2,7 +2,12 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 import { adminProcedure, createTRPCRouter } from "@/server/api/trpc";
-import { consultants, installations, operators, users } from "@/server/db/schema";
+import {
+  consultants,
+  installations,
+  operators,
+  users,
+} from "@/server/db/schema";
 
 export const adminRouter = createTRPCRouter({
   // ─── Users ──────────────────────────────────────────────────────────────────
@@ -14,7 +19,9 @@ export const adminRouter = createTRPCRouter({
   }),
 
   setUserConsultant: adminProcedure
-    .input(z.object({ userId: z.string(), consultantId: z.number().nullable() }))
+    .input(
+      z.object({ userId: z.string(), consultantId: z.number().nullable() }),
+    )
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .update(users)
@@ -32,7 +39,12 @@ export const adminRouter = createTRPCRouter({
     }),
 
   setUserRole: adminProcedure
-    .input(z.object({ userId: z.string(), role: z.enum(["admin", "operator_user"]) }))
+    .input(
+      z.object({
+        userId: z.string(),
+        role: z.enum(["admin", "operator_user"]),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await ctx.db
         .update(users)
@@ -47,16 +59,28 @@ export const adminRouter = createTRPCRouter({
   }),
 
   createConsultant: adminProcedure
-    .input(z.object({ name: z.string().min(1), title: z.string().min(1), avatarUrl: z.string().optional() }))
+    .input(
+      z.object({
+        name: z.string().min(1),
+        title: z.string().min(1),
+        avatarUrl: z.string().optional(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      const [created] = await ctx.db.insert(consultants).values(input).returning();
+      const [created] = await ctx.db
+        .insert(consultants)
+        .values(input)
+        .returning();
       return created;
     }),
 
   deleteConsultant: adminProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.update(users).set({ consultantId: null }).where(eq(users.consultantId, input.id));
+      await ctx.db
+        .update(users)
+        .set({ consultantId: null })
+        .where(eq(users.consultantId, input.id));
       await ctx.db.delete(consultants).where(eq(consultants.id, input.id));
     }),
 
@@ -67,14 +91,19 @@ export const adminRouter = createTRPCRouter({
   }),
 
   createInstallation: adminProcedure
-    .input(z.object({
-      operatorId: z.number(),
-      name: z.string().min(1),
-      identifier: z.string().optional(),
-      address: z.string().optional(),
-    }))
+    .input(
+      z.object({
+        operatorId: z.number(),
+        name: z.string().min(1),
+        identifier: z.string().optional(),
+        address: z.string().optional(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      const [created] = await ctx.db.insert(installations).values(input).returning();
+      const [created] = await ctx.db
+        .insert(installations)
+        .values(input)
+        .returning();
       return created;
     }),
 
@@ -85,20 +114,28 @@ export const adminRouter = createTRPCRouter({
     }),
 
   createOperator: adminProcedure
-    .input(z.object({
-      name: z.string().min(1),
-      identifier: z.string().min(1),
-      country: z.string().length(2).optional(),
-    }))
+    .input(
+      z.object({
+        name: z.string().min(1),
+        identifier: z.string().min(1),
+        country: z.string().length(2).optional(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
-      const [created] = await ctx.db.insert(operators).values(input).returning();
+      const [created] = await ctx.db
+        .insert(operators)
+        .values(input)
+        .returning();
       return created;
     }),
 
   deleteOperator: adminProcedure
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
-      await ctx.db.update(users).set({ operatorId: null }).where(eq(users.operatorId, input.id));
+      await ctx.db
+        .update(users)
+        .set({ operatorId: null })
+        .where(eq(users.operatorId, input.id));
       await ctx.db.delete(operators).where(eq(operators.id, input.id));
     }),
 });

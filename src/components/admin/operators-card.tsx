@@ -14,14 +14,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Trash2, Building2, ChevronDown, ChevronRight, Plus } from "lucide-react";
+import {
+  Trash2,
+  Building2,
+  ChevronDown,
+  ChevronRight,
+  Plus,
+} from "lucide-react";
 
 type Operator = {
   id: number;
   name: string;
   identifier: string;
   country: string | null;
-  installations: { id: number; name: string; identifier: string | null; address: string | null }[];
+  installations: {
+    id: number;
+    name: string;
+    identifier: string | null;
+    address: string | null;
+  }[];
 };
 
 function InstallationRow({
@@ -45,7 +56,9 @@ function InstallationRow({
         <p className="text-sm">{installation.name}</p>
         {(installation.identifier ?? installation.address) && (
           <p className="text-muted-foreground text-xs">
-            {[installation.identifier, installation.address].filter(Boolean).join(" · ")}
+            {[installation.identifier, installation.address]
+              .filter(Boolean)
+              .join(" · ")}
           </p>
         )}
       </div>
@@ -62,7 +75,13 @@ function InstallationRow({
   );
 }
 
-function AddInstallationForm({ operatorId, onDone }: { operatorId: number; onDone: () => void }) {
+function AddInstallationForm({
+  operatorId,
+  onDone,
+}: {
+  operatorId: number;
+  onDone: () => void;
+}) {
   const t = useTranslations("admin");
   const utils = api.useUtils();
   const [name, setName] = useState("");
@@ -182,7 +201,7 @@ function OperatorRow({ operator }: { operator: Operator }) {
       {expanded && (
         <div className="mt-1 ml-6 border-l pl-2">
           <div className="flex items-center justify-between">
-            <p className="text-muted-foreground py-1 text-xs font-medium uppercase tracking-wide">
+            <p className="text-muted-foreground py-1 text-xs font-medium tracking-wide uppercase">
               {t("installationsTitle")}
             </p>
             <Button
@@ -196,10 +215,16 @@ function OperatorRow({ operator }: { operator: Operator }) {
             </Button>
           </div>
           {operator.installations.length === 0 && !addingInstallation && (
-            <p className="text-muted-foreground py-1 text-xs">{t("noInstallations")}</p>
+            <p className="text-muted-foreground py-1 text-xs">
+              {t("noInstallations")}
+            </p>
           )}
           {operator.installations.map((inst) => (
-            <InstallationRow key={inst.id} operatorId={operator.id} installation={inst} />
+            <InstallationRow
+              key={inst.id}
+              operatorId={operator.id}
+              installation={inst}
+            />
           ))}
           {addingInstallation && (
             <AddInstallationForm
@@ -288,7 +313,9 @@ export function OperatorsCard() {
               <Input
                 id="o-country"
                 value={oCountry}
-                onChange={(e) => setOCountry(e.target.value.toUpperCase().slice(0, 2))}
+                onChange={(e) =>
+                  setOCountry(e.target.value.toUpperCase().slice(0, 2))
+                }
                 placeholder="DE"
                 maxLength={2}
               />

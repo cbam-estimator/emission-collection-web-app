@@ -1,15 +1,15 @@
 "use client";
 
-import type { ChangeEvent } from "react";
-import { useState } from "react";
+import { ConsultDialog } from "@/components/shared/consult-dialog";
+import { DedicatedConsultDialog } from "@/components/shared/dedicated-consult-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { api } from "@/trpc/react";
 import { ArrowRight, Info } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { api } from "@/trpc/react";
-import { ConsultDialog } from "@/components/shared/consult-dialog";
-import { DedicatedConsultDialog } from "@/components/shared/dedicated-consult-dialog";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 
 interface CannotProvideSectionProps {
   cannotProvide: boolean;
@@ -56,7 +56,7 @@ export function CannotProvideSection({
           <button
             type="button"
             onClick={() => setDialogOpen(true)}
-            className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm transition-colors"
+            className="text-muted-foreground hover:text-foreground flex cursor-pointer items-center gap-2 text-sm transition-colors"
           >
             <Info className="size-4" />
             {t("contactExpert")}
