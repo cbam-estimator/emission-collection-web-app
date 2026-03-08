@@ -1,29 +1,81 @@
-# Create T3 App
+# Emission Collection
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A web application for collecting and managing carbon emissions data under the EU's **Carbon Border Adjustment Mechanism (CBAM)** regulation. It enables industrial operators to report emissions for their production facilities and product categories, and allows administrators to manage users, operators, and expert consultants.
 
-## What's next? How do I make an app with this?
+## What it does
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- **Operators** log in and submit emissions data for their installations (production facilities), organized by CN (Combined Nomenclature) product codes
+- **Admins** manage users, operators, installations, and assign expert consultants
+- **Consultants** can be assigned to users to provide guidance during the reporting process
+- Tracks reporting periods and submission status (pending / submitted / approved / rejected)
+- Supports multiple installations per operator with progress tracking across CN codes
+- Available in 6 languages: English, German, French, Spanish, Polish, Turkish
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+| Layer | Technology |
+|---|---|
+| Framework | [Next.js](https://nextjs.org) (App Router) |
+| Language | TypeScript |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com) |
+| UI Components | [shadcn/ui](https://ui.shadcn.com) + [Radix UI](https://radix-ui.com) |
+| API | [tRPC](https://trpc.io) + [TanStack Query](https://tanstack.com/query) |
+| Database | [Turso](https://turso.tech) (LibSQL / SQLite) |
+| ORM | [Drizzle ORM](https://orm.drizzle.team) |
+| Auth | [Clerk](https://clerk.com) |
+| Validation | [Zod](https://zod.dev) |
+| i18n | [next-intl](https://next-intl-docs.vercel.app) |
+| Package Manager | [pnpm](https://pnpm.io) |
 
-## Learn More
+## Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+### Prerequisites
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- Node.js 18+
+- pnpm
+- A [Turso](https://turso.tech) database
+- A [Clerk](https://clerk.com) application
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Setup
 
-## How do I deploy this?
+1. Install dependencies:
+   ```bash
+   pnpm install
+   ```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+2. Copy `.env.example` to `.env` and fill in your environment variables:
+   ```
+   DATABASE_URL=
+   DATABASE_AUTH_TOKEN=
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+   CLERK_SECRET_KEY=
+   CLERK_WEBHOOK_SECRET=
+   ```
+
+3. Push the database schema:
+   ```bash
+   pnpm db:push
+   ```
+
+4. (Optional) Seed the database:
+   ```bash
+   pnpm db:seed
+   ```
+
+5. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm start` | Start production server |
+| `pnpm lint` | Run ESLint |
+| `pnpm typecheck` | Run TypeScript type checking |
+| `pnpm db:push` | Push schema changes to database |
+| `pnpm db:studio` | Open Drizzle Studio |
+| `pnpm db:migrate` | Run migrations |
