@@ -10,7 +10,13 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useClerk } from "@clerk/nextjs";
-import { Check, Database, LogOut, ShieldCheck } from "lucide-react";
+import {
+  Check,
+  ClipboardList,
+  Database,
+  LogOut,
+  ShieldCheck,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,8 +35,12 @@ export function CBAMSidebar() {
   const locale = params.locale as string;
   const pathname = usePathname();
   const { signOut } = useClerk();
-  const { selectedInstallationId, setSelectedInstallationId } =
-    useInstallation();
+  const {
+    selectedInstallationId,
+    setSelectedInstallationId,
+    selectedQuarter,
+    setSelectedQuarter,
+  } = useInstallation();
 
   const { data: profile } = api.user.getProfile.useQuery();
   const isAdmin = profile?.role === "admin";
@@ -42,20 +52,40 @@ export function CBAMSidebar() {
       { operatorId: operator?.id ?? 0 },
       { enabled: !!operator?.id },
     );
-  const { data: entries = [], isLoading: entriesLoading } =
-    api.installationCnCode.getByInstallation.useQuery(
+
+  const { data: quarters = [], isLoading: quartersLoading } =
+    api.installationCnCode.getQuarters.useQuery(
       { installationId: selectedInstallationId ?? 0 },
       { enabled: !!selectedInstallationId },
     );
 
-  // Auto-select first installation when data loads
+  const { data: entries = [], isLoading: entriesLoading } =
+    api.installationCnCode.getByInstallationAndQuarter.useQuery(
+      {
+        installationId: selectedInstallationId ?? 0,
+        quarter: selectedQuarter ?? "",
+      },
+      { enabled: !!selectedInstallationId && !!selectedQuarter },
+    );
+
+  // Auto-select first installation
   useEffect(() => {
     if (!selectedInstallationId && installations.length > 0) {
       setSelectedInstallationId(installations[0]!.id);
     }
   }, [installations, selectedInstallationId, setSelectedInstallationId]);
 
-  const resolvedCount = entries.filter((e) => e.resolved).length;
+  // Auto-select first quarter when installation changes or quarters load
+  useEffect(() => {
+    if (
+      quarters.length > 0 &&
+      (!selectedQuarter || !quarters.includes(selectedQuarter))
+    ) {
+      setSelectedQuarter(quarters[0]!);
+    }
+  }, [quarters, selectedQuarter, setSelectedQuarter]);
+
+  const filledCount = entries.filter((e) => e.status === "filled").length;
   const totalCount = entries.length;
 
   const isGettingStarted =
@@ -63,7 +93,7 @@ export function CBAMSidebar() {
 
   return (
     <aside className="bg-background flex h-screen w-72 min-w-72 flex-col border-r">
-      {/* Logo - centered */}
+      {/* Logo */}
       <div className="flex items-center justify-center gap-2 border-b px-6 py-4">
         <Image
           src="/favicon.png"
@@ -77,11 +107,11 @@ export function CBAMSidebar() {
 
       {/* Navigation */}
       <div className="flex-1 overflow-auto p-4">
-        {/* Getting Started Link */}
+        {/* Getting Started */}
         <Link
           href={`/${locale}`}
           className={cn(
-            "mb-3 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+            "mb-2 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
             isGettingStarted
               ? "bg-primary/10 text-primary"
               : "text-muted-foreground hover:bg-muted hover:text-foreground",
@@ -106,7 +136,21 @@ export function CBAMSidebar() {
           {t("gettingStarted")}
         </Link>
 
-        {/* Admin Link — visible to admins only */}
+        {/* Requests Link */}
+        <Link
+          href={`/${locale}/requests`}
+          className={cn(
+            "mb-2 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+            pathname.startsWith(`/${locale}/requests`)
+              ? "bg-primary/10 text-primary"
+              : "text-muted-foreground hover:bg-muted hover:text-foreground",
+          )}
+        >
+          <ClipboardList className="size-4" />
+          {t("requests")}
+        </Link>
+
+        {/* Admin Link */}
         {isAdmin && (
           <Link
             href={`/${locale}/admin`}
@@ -122,7 +166,36 @@ export function CBAMSidebar() {
           </Link>
         )}
 
-        {/* CN Entry List */}
+        {/* Quarter selector */}
+        {selectedInstallationId && (
+          <div className="mb-3">
+            {quartersLoading ? (
+              <Skeleton className="h-8 w-full" />
+            ) : quarters.length > 0 ? (
+              <Select
+                value={selectedQuarter ?? ""}
+                onValueChange={setSelectedQuarter}
+              >
+                <SelectTrigger className="h-8 w-full text-xs">
+                  <SelectValue placeholder="Select quarter" />
+                </SelectTrigger>
+                <SelectContent>
+                  {quarters.map((q) => (
+                    <SelectItem key={q} value={q} className="text-xs">
+                      {q}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <p className="text-muted-foreground px-1 text-xs">
+                No pending quarters
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* CN Code Entry List */}
         <div className="space-y-2">
           {entriesLoading
             ? Array.from({ length: 3 }).map((_, i) => (
@@ -135,8 +208,14 @@ export function CBAMSidebar() {
                 </div>
               ))
             : entries.map((entry) => {
-                const href = `/${locale}/cn/${entry.cnCode}`;
+                const href = `/${locale}/cn/${selectedInstallationId}/${selectedQuarter}/${entry.cnCode}`;
                 const isActive = pathname === href;
+                const isFilled = entry.status === "filled";
+                const emissionData = entry.emissionData as {
+                  cannotProvide?: boolean;
+                } | null;
+                const isCannotProvide =
+                  isFilled && emissionData?.cannotProvide === true;
                 return (
                   <Link
                     key={entry.cnCode}
@@ -145,23 +224,36 @@ export function CBAMSidebar() {
                       "flex items-center justify-between rounded-lg border px-3 py-2 transition-colors",
                       isActive
                         ? "border-primary bg-primary/10"
-                        : entry.resolved
-                          ? "border-primary/30 bg-primary/5 hover:bg-primary/10"
-                          : "border-border bg-background hover:bg-muted/50",
+                        : isCannotProvide
+                          ? "border-orange-500/30 bg-orange-500/5 hover:bg-orange-500/10"
+                          : isFilled
+                            ? "border-green-500/30 bg-green-500/5 hover:bg-green-500/10"
+                            : "border-border bg-background hover:bg-muted/50",
                     )}
                   >
-                    <span className="font-mono text-sm font-medium">
-                      {entry.cnCode}
-                    </span>
+                    <div className="min-w-0">
+                      <span className="font-mono text-sm font-medium">
+                        {entry.cnCode}
+                      </span>
+                      {entry.requestingCustomers.length > 0 && (
+                        <p className="text-muted-foreground truncate text-xs">
+                          {entry.requestingCustomers
+                            .map((c) => c.name)
+                            .join(", ")}
+                        </p>
+                      )}
+                    </div>
                     <div
                       className={cn(
-                        "flex size-6 items-center justify-center rounded-full border-2",
-                        entry.resolved
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-muted-foreground/30",
+                        "ml-2 flex size-6 shrink-0 items-center justify-center rounded-full border-2",
+                        isCannotProvide
+                          ? "border-orange-500 bg-orange-500 text-white"
+                          : isFilled
+                            ? "border-green-500 bg-green-500 text-white"
+                            : "border-muted-foreground/30",
                       )}
                     >
-                      {entry.resolved && <Check className="size-4" />}
+                      {isFilled && <Check className="size-4" />}
                     </div>
                   </Link>
                 );
@@ -176,7 +268,7 @@ export function CBAMSidebar() {
           <Database className="size-4" />
           <span>
             {t("entriesResolved", {
-              resolved: resolvedCount,
+              resolved: filledCount,
               total: totalCount,
             })}
           </span>
@@ -186,7 +278,7 @@ export function CBAMSidebar() {
         <Button
           className="mb-4 w-full"
           variant="outline"
-          disabled={resolvedCount < totalCount}
+          disabled={totalCount === 0 || filledCount < totalCount}
         >
           {t("submitData")}
         </Button>
@@ -197,7 +289,10 @@ export function CBAMSidebar() {
         ) : (
           <Select
             value={selectedInstallationId?.toString() ?? ""}
-            onValueChange={(val) => setSelectedInstallationId(Number(val))}
+            onValueChange={(val) => {
+              setSelectedInstallationId(Number(val));
+              setSelectedQuarter(null);
+            }}
           >
             <SelectTrigger className="w-full">
               <SelectValue placeholder={t("selectInstallation")} />

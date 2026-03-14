@@ -5,11 +5,18 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { type ProductionRoute } from "@/lib/types";
 import { useTranslations } from "next-intl";
-import { ReportingPeriodBadge } from "./reporting-period-badge";
 import { CNCodeHeader } from "./cn-code-header";
 import { EmissionInputs } from "./emission-inputs";
 import { ProductionRoutes } from "./production-routes";
 import { CannotProvideSection } from "./cannot-provide-section";
+
+interface ExistingEmissionData {
+  seeDirectValue?: string;
+  benchmarkValue?: string;
+  selectedRoute?: string;
+  cannotProvide?: boolean;
+  explanation?: string;
+}
 
 interface CNCodeFormProps {
   cnCode: string;
@@ -17,8 +24,12 @@ interface CNCodeFormProps {
   description: string;
   productionRoutes: ProductionRoute[];
   reportingPeriod?: string;
+  existingData?: ExistingEmissionData | null;
+  isSaving?: boolean;
+  onSave?: (data: ExistingEmissionData) => void;
   onNext?: () => void;
   isLast?: boolean;
+  requestingCustomers?: { id: number; name: string }[];
 }
 
 export function CNCodeForm({
@@ -27,26 +38,62 @@ export function CNCodeForm({
   description,
   productionRoutes,
   reportingPeriod = "2026",
+  existingData,
+  isSaving = false,
+  onSave,
   onNext,
   isLast = false,
+  requestingCustomers = [],
 }: CNCodeFormProps) {
   const t = useTranslations("cnCode");
-  const [cannotProvide, setCannotProvide] = useState(false);
-  const [selectedRoute, setSelectedRoute] = useState<string>("");
-  const [seeDirectValue, setSeeDirectValue] = useState("");
-  const [benchmarkValue, setBenchmarkValue] = useState("");
-  const [explanation, setExplanation] = useState("");
+  const [cannotProvide, setCannotProvide] = useState(
+    existingData?.cannotProvide ?? false,
+  );
+  const [selectedRoute, setSelectedRoute] = useState(
+    existingData?.selectedRoute ?? "",
+  );
+  const [seeDirectValue, setSeeDirectValue] = useState(
+    existingData?.seeDirectValue ?? "",
+  );
+  const [benchmarkValue, setBenchmarkValue] = useState(
+    existingData?.benchmarkValue ?? "",
+  );
+  const [explanation, setExplanation] = useState(
+    existingData?.explanation ?? "",
+  );
 
-  const isNextEnabled =
+  const isFormValid =
     cannotProvide || (seeDirectValue.trim() !== "" && selectedRoute !== "");
 
+  function getFormData() {
+    return {
+      seeDirectValue,
+      benchmarkValue,
+      selectedRoute,
+      cannotProvide,
+      explanation,
+    };
+  }
+
+  function handleSave() {
+    if (!isFormValid) return;
+    onSave?.(getFormData());
+  }
+
+  function handleNext() {
+    if (!isFormValid) return;
+    onSave?.(getFormData());
+    onNext?.();
+  }
+
   return (
-    <Card className="relative flex w-full flex-col">
-      <ReportingPeriodBadge reportingPeriod={reportingPeriod} />
+    <Card className="flex w-full flex-col">
       <CNCodeHeader
         cnCode={cnCode}
         productName={productName}
         description={description}
+        reportingPeriod={reportingPeriod}
+        requestingCustomers={requestingCustomers}
       />
       <CardContent className="space-y-6">
         <div className={cannotProvide ? "pointer-events-none opacity-50" : ""}>
@@ -69,9 +116,16 @@ export function CNCodeForm({
           onExplanationChange={setExplanation}
         />
       </CardContent>
-      <CardFooter className="justify-end">
-        <Button disabled={!isNextEnabled} onClick={onNext}>
-          {isLast ? t("finish") : t("next")}
+      <CardFooter className="flex justify-between">
+        <Button
+          variant="outline"
+          disabled={!isFormValid || isSaving}
+          onClick={handleSave}
+        >
+          {isSaving ? t("saving") : t("save")}
+        </Button>
+        <Button disabled={!isFormValid || isSaving} onClick={handleNext}>
+          {isSaving ? t("saving") : isLast ? t("finish") : t("next")}
         </Button>
       </CardFooter>
     </Card>

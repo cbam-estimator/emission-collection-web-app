@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { index, sqliteTableCreator } from "drizzle-orm/sqlite-core";
+import { index, sqliteTableCreator, unique } from "drizzle-orm/sqlite-core";
 
 export const createTable = sqliteTableCreator(
   (name) => `emission_collection_${name}`,
@@ -94,71 +94,6 @@ export const installations = createTable(
   (t) => [index("installation_operator_idx").on(t.operatorId)],
 );
 
-// Emission reporting requests scoped to an installation and a reporting period.
-export const requests = createTable(
-  "request",
-  (d) => ({
-    id: d.integer({ mode: "number" }).primaryKey({ autoIncrement: true }),
-    installationId: d
-      .integer({ mode: "number" })
-      .notNull()
-      .references(() => installations.id, { onDelete: "cascade" }),
-    status: d
-      .text({ enum: ["pending", "submitted", "approved", "rejected"] })
-      .notNull()
-      .default("pending"),
-    // Reporting period, e.g. "2024" or "2024-Q1"
-    period: d.text().notNull(),
-    dueDate: d.integer({ mode: "timestamp" }),
-    submittedAt: d.integer({ mode: "timestamp" }),
-    submittedBy: d.text().references(() => users.id, { onDelete: "set null" }),
-    createdAt: d
-      .integer({ mode: "timestamp" })
-      .default(sql`(unixepoch())`)
-      .notNull(),
-    updatedAt: d.integer({ mode: "timestamp" }).$onUpdate(() => new Date()),
-  }),
-  (t) => [
-    index("request_installation_idx").on(t.installationId),
-    index("request_status_idx").on(t.status),
-  ],
-);
-
-export const auditLog = createTable(
-  "audit_log",
-  (d) => ({
-    id: d.integer({ mode: "number" }).primaryKey({ autoIncrement: true }),
-    userId: d.text().references(() => users.id, { onDelete: "set null" }),
-    event: d
-      .text({
-        enum: [
-          "login",
-          "invitation_sent",
-          "request_consulted",
-          "request_submitted",
-          "request_approved",
-          "request_rejected",
-        ],
-      })
-      .notNull(),
-    // Polymorphic reference to the affected entity
-    entityType: d.text({
-      enum: ["request", "installation", "operator", "user"],
-    }),
-    entityId: d.integer({ mode: "number" }),
-    // Any extra structured context (IP, user agent, diff, etc.)
-    metadata: d.text({ mode: "json" }),
-    createdAt: d
-      .integer({ mode: "timestamp" })
-      .default(sql`(unixepoch())`)
-      .notNull(),
-  }),
-  (t) => [
-    index("audit_log_user_idx").on(t.userId),
-    index("audit_log_event_idx").on(t.event),
-  ],
-);
-
 // EU importer companies that request CBAM emission data from an operator.
 export const customers = createTable(
   "customer",
@@ -179,20 +114,74 @@ export const customers = createTable(
   (t) => [index("customer_operator_idx").on(t.operatorId)],
 );
 
-export const operatorsRelations = relations(operators, ({ many }) => ({
-  users: many(users),
-  installations: many(installations),
-  customers: many(customers),
-}));
-
-export const installationsRelations = relations(installations, ({ one }) => ({
-  operator: one(operators, {
-    fields: [installations.operatorId],
-    references: [operators.id],
+// A customer's request for CN code emission data from an installation for a specific quarter.
+// One request per (customer, installation, quarter).
+export const requests = createTable(
+  "request",
+  (d) => ({
+    id: d.integer({ mode: "number" }).primaryKey({ autoIncrement: true }),
+    customerId: d
+      .integer({ mode: "number" })
+      .notNull()
+      .references(() => customers.id, { onDelete: "cascade" }),
+    installationId: d
+      .integer({ mode: "number" })
+      .notNull()
+      .references(() => installations.id, { onDelete: "cascade" }),
+    // Reporting quarter, e.g. "2026-Q1"
+    quarter: d.text().notNull(),
+    // pending  → request received, nothing filled yet
+    // in_progress → at least one CN code has been filled
+    // completed   → all requested CN codes have been filled
+    status: d
+      .text({ enum: ["pending", "in_progress", "completed"] })
+      .notNull()
+      .default("pending"),
+    createdAt: d
+      .integer({ mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+    updatedAt: d.integer({ mode: "timestamp" }).$onUpdate(() => new Date()),
   }),
-}));
+  (t) => [
+    unique("request_customer_installation_quarter_uniq").on(
+      t.customerId,
+      t.installationId,
+      t.quarter,
+    ),
+    index("request_installation_idx").on(t.installationId),
+    index("request_customer_idx").on(t.customerId),
+    index("request_status_idx").on(t.status),
+  ],
+);
 
-// CN codes that are fixed for a given installation (the goods it produces).
+// Individual CN codes requested within a customer request.
+// Multiple customers may request the same CN code from the same installation for the same quarter.
+export const requestCnCodes = createTable(
+  "request_cn_code",
+  (d) => ({
+    id: d.integer({ mode: "number" }).primaryKey({ autoIncrement: true }),
+    requestId: d
+      .integer({ mode: "number" })
+      .notNull()
+      .references(() => requests.id, { onDelete: "cascade" }),
+    cnCode: d
+      .text()
+      .notNull()
+      .references(() => defdataCnCodes.cnCode),
+    createdAt: d
+      .integer({ mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+  }),
+  (t) => [
+    unique("request_cn_code_uniq").on(t.requestId, t.cnCode),
+    index("request_cn_code_request_idx").on(t.requestId),
+  ],
+);
+
+// Emission data filled in by the operator, once per (installation, quarter, cnCode).
+// Shared across all customer requests that reference the same combination.
 export const installationCnCodes = createTable(
   "installation_cn_code",
   (d) => ({
@@ -201,22 +190,36 @@ export const installationCnCodes = createTable(
       .integer({ mode: "number" })
       .notNull()
       .references(() => installations.id, { onDelete: "cascade" }),
+    quarter: d.text().notNull(),
     cnCode: d
       .text()
       .notNull()
       .references(() => defdataCnCodes.cnCode),
-    resolved: d.integer({ mode: "boolean" }).notNull().default(false),
+    // Structured emission values filled in by the operator
+    emissionData: d.text({ mode: "json" }),
+    status: d
+      .text({ enum: ["pending", "filled"] })
+      .notNull()
+      .default("pending"),
+    filledBy: d.text().references(() => users.id, { onDelete: "set null" }),
+    filledAt: d.integer({ mode: "timestamp" }),
     createdAt: d
       .integer({ mode: "timestamp" })
       .default(sql`(unixepoch())`)
       .notNull(),
     updatedAt: d.integer({ mode: "timestamp" }).$onUpdate(() => new Date()),
   }),
-  (t) => [index("installation_cn_code_installation_idx").on(t.installationId)],
+  (t) => [
+    unique("installation_cn_code_uniq").on(
+      t.installationId,
+      t.quarter,
+      t.cnCode,
+    ),
+    index("installation_cn_code_installation_idx").on(t.installationId),
+  ],
 );
 
 // Combined Nomenclature codes with descriptions and optional default emission data.
-// Could later be populated from an external source.
 export const defdataCnCodes = createTable(
   "defdata_cn_code",
   (d) => ({
@@ -228,4 +231,117 @@ export const defdataCnCodes = createTable(
     updatedAt: d.integer({ mode: "timestamp" }).$onUpdate(() => new Date()),
   }),
   (t) => [index("defdata_cn_code_idx").on(t.cnCode)],
+);
+
+export const auditLog = createTable(
+  "audit_log",
+  (d) => ({
+    id: d.integer({ mode: "number" }).primaryKey({ autoIncrement: true }),
+    userId: d.text().references(() => users.id, { onDelete: "set null" }),
+    event: d
+      .text({
+        enum: [
+          // A customer request was received
+          "request_created",
+          // An operator user viewed a request
+          "request_consulted",
+          // An operator filled in CN code emission data
+          "cn_code_filled",
+          // All CN codes in a request have been filled
+          "request_completed",
+        ],
+      })
+      .notNull(),
+    entityType: d.text({
+      enum: ["request", "installation_cn_code"],
+    }),
+    entityId: d.integer({ mode: "number" }),
+    // Any extra structured context (e.g. which cnCode was filled, customerId, quarter)
+    metadata: d.text({ mode: "json" }),
+    createdAt: d
+      .integer({ mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+  }),
+  (t) => [
+    index("audit_log_user_idx").on(t.userId),
+    index("audit_log_event_idx").on(t.event),
+  ],
+);
+
+// ─── Relations ────────────────────────────────────────────────────────────────
+
+export const operatorsRelations = relations(operators, ({ many }) => ({
+  users: many(users),
+  installations: many(installations),
+  customers: many(customers),
+}));
+
+export const installationsRelations = relations(
+  installations,
+  ({ one, many }) => ({
+    operator: one(operators, {
+      fields: [installations.operatorId],
+      references: [operators.id],
+    }),
+    requests: many(requests),
+    installationCnCodes: many(installationCnCodes),
+  }),
+);
+
+export const customersRelations = relations(customers, ({ one, many }) => ({
+  operator: one(operators, {
+    fields: [customers.operatorId],
+    references: [operators.id],
+  }),
+  requests: many(requests),
+}));
+
+export const requestsRelations = relations(requests, ({ one, many }) => ({
+  customer: one(customers, {
+    fields: [requests.customerId],
+    references: [customers.id],
+  }),
+  installation: one(installations, {
+    fields: [requests.installationId],
+    references: [installations.id],
+  }),
+  cnCodes: many(requestCnCodes),
+}));
+
+export const requestCnCodesRelations = relations(requestCnCodes, ({ one }) => ({
+  request: one(requests, {
+    fields: [requestCnCodes.requestId],
+    references: [requests.id],
+  }),
+  defdataCnCode: one(defdataCnCodes, {
+    fields: [requestCnCodes.cnCode],
+    references: [defdataCnCodes.cnCode],
+  }),
+}));
+
+export const installationCnCodesRelations = relations(
+  installationCnCodes,
+  ({ one }) => ({
+    installation: one(installations, {
+      fields: [installationCnCodes.installationId],
+      references: [installations.id],
+    }),
+    defdataCnCode: one(defdataCnCodes, {
+      fields: [installationCnCodes.cnCode],
+      references: [defdataCnCodes.cnCode],
+    }),
+    filledByUser: one(users, {
+      fields: [installationCnCodes.filledBy],
+      references: [users.id],
+    }),
+  }),
+);
+
+export const defdataCnCodesRelations = relations(
+  defdataCnCodes,
+  ({ many }) => ({
+    requestCnCodes: many(requestCnCodes),
+    installationCnCodes: many(installationCnCodes),
+  }),
 );

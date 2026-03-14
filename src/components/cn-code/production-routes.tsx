@@ -22,8 +22,8 @@ export function ProductionRoutes({
     <div className="mt-6 space-y-3">
       <Label className="text-sm font-medium">{t("label")}</Label>
       <RadioGroup value={selectedRoute} onValueChange={onRouteChange}>
-        {routes.map((route) => (
-          <div key={route.value} className="flex items-center gap-2">
+        {routes.map((route, i) => (
+          <div key={`${route.value}-${i}`} className="flex items-center gap-2">
             <RadioGroupItem value={route.value} id={route.value} />
             <Label htmlFor={route.value} className="cursor-pointer font-normal">
               {route.label}

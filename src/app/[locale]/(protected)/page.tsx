@@ -12,23 +12,28 @@ function PageContent() {
   const router = useRouter();
   const params = useParams();
   const locale = params.locale as string;
-  const { selectedInstallationId } = useInstallation();
+  const { selectedInstallationId, selectedQuarter } = useInstallation();
 
   const { data: operator } = api.operator.getMine.useQuery();
   const { data: customers = [] } = api.customer.getByOperator.useQuery(
     { operatorId: operator?.id ?? 0 },
     { enabled: !!operator?.id },
   );
-  const { data: cnCodes = [] } =
-    api.installationCnCode.getByInstallation.useQuery(
-      { installationId: selectedInstallationId ?? 0 },
-      { enabled: !!selectedInstallationId },
+  const { data: entries = [] } =
+    api.installationCnCode.getByInstallationAndQuarter.useQuery(
+      {
+        installationId: selectedInstallationId ?? 0,
+        quarter: selectedQuarter ?? "",
+      },
+      { enabled: !!selectedInstallationId && !!selectedQuarter },
     );
 
   function handleStart() {
-    const firstCode = cnCodes[0]?.cnCode;
-    if (firstCode) {
-      router.push(`/${locale}/cn/${firstCode}`);
+    const first = entries[0];
+    if (first && selectedInstallationId && selectedQuarter) {
+      router.push(
+        `/${locale}/cn/${selectedInstallationId}/${selectedQuarter}/${first.cnCode}`,
+      );
     }
   }
 

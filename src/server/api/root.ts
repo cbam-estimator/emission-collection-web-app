@@ -3,6 +3,7 @@ import { operatorRouter } from "@/server/api/routers/operator";
 import { installationRouter } from "@/server/api/routers/installation";
 import { customerRouter } from "@/server/api/routers/customer";
 import { installationCnCodeRouter } from "@/server/api/routers/installationCnCode";
+import { requestRouter } from "@/server/api/routers/request";
 import { adminRouter } from "@/server/api/routers/admin";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
@@ -17,6 +18,7 @@ export const appRouter = createTRPCRouter({
   installation: installationRouter,
   customer: customerRouter,
   installationCnCode: installationCnCodeRouter,
+  request: requestRouter,
   admin: adminRouter,
 });
 

@@ -5,6 +5,7 @@ import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { languages } from "@/lib/languages";
+import { api } from "@/trpc/react";
 
 interface HeaderProps {
   title?: string;
@@ -23,6 +25,8 @@ export function CBAMHeader({
   onToggleSidebar,
 }: HeaderProps) {
   const locale = useLocale();
+  const { data: profile } = api.user.getProfile.useQuery();
+  const isAdmin = profile?.role === "admin";
   const router = useRouter();
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
@@ -47,7 +51,14 @@ export function CBAMHeader({
         >
           <PanelLeft className="size-5" />
         </Button>
-        <span className="text-sm font-medium">{title}</span>
+        <span className="rounded-md px-2 py-1 text-sm font-medium">
+          {title}
+        </span>
+        {isAdmin && (
+          <Badge className="bg-primary/15 text-primary hover:bg-primary/20 border-primary/20 border">
+            Admin
+          </Badge>
+        )}
       </div>
 
       <div className="flex items-center gap-2">

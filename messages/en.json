@@ -1,6 +1,7 @@
 {
   "sidebar": {
     "gettingStarted": "Getting Started",
+    "requests": "Requests",
     "entriesResolved": "{resolved}/{total} Entries Resolved",
     "submitData": "Submit Data",
     "selectInstallation": "Select installation",
@@ -50,8 +51,10 @@
   "cnCode": {
     "pageTitle": "Dashboard",
     "notFound": "CN Code not found",
+    "save": "Save",
     "next": "Next",
     "finish": "Finish",
+    "saving": "Saving…",
     "emissionInputs": {
       "seeDirect": "SEE Direct",
       "benchmark": "Benchmark",
